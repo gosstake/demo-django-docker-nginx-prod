@@ -15,7 +15,7 @@ services:
             - "app_2"
   app_1:
     build:
-      context: ./app
+      context: ./app_site
     volumes:
       - type: volume
         source: web_data
@@ -24,7 +24,7 @@ services:
       - DEBUG=1
   app_2:
     build:
-      context: ./app
+      context: ./app_site
     volumes:
       - type: volume
         source: web_data
