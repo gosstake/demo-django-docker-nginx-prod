@@ -1,13 +1,36 @@
 version: '3.7'
 
+volumes:
+  web_data:
+    external: true
+    
 services:
-  app:
+  nginix_loadbalancer:
+        build:
+            context: ./nginix_loadbalancer
+        ports:
+            - "8000:5000"
+        links:
+            - "app_1"
+            - "app_2"
+  app_1:
     build:
-      context: .
-    ports:
-      - "8000:8000"
+      context: ./app
     volumes:
-      - ./app:/app
-    command: sh -c "python manage.py runserver 0.0.0.0:8000"
+      - type: volume
+        source: web_data
+        target: ./app/Database
+    command: sh -c "python manage.py runserver 0.0.0.0:8081"
     environment:
       - DEBUG=1
+  app_2:
+    build:
+      context: ./app
+    volumes:
+      - type: volume
+        source: web_data
+        target: ./app/Database
+    command: sh -c "python manage.py runserver 0.0.0.0:8082"
+    environment:
+      - DEBUG=1
+  
