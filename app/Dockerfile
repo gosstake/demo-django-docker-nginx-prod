@@ -23,5 +23,5 @@ RUN chmod -R 755 /vol/web
 RUN chmod 777 /scripts/entrypoint.sh
 USER user
 
-#ENTRYPOINT ["entrypoint.sh"]
-#CMD ["entrypoint.sh"]
+ENTRYPOINT ["/scripts/entrypoint.sh"]
+CMD ["entrypoint.sh"]

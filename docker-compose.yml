@@ -16,13 +16,19 @@ services:
   app_1:
     build:
       context: ./app
-    command: sh -c "python manage.py runserver 0.0.0.0:8080"
+    volumes:
+      - type: volume
+        source: web_data
+        target: /Database
     environment:
       - DEBUG=1
   app_2:
     build:
       context: ./app
-    command: sh -c "python manage.py runserver 0.0.0.0:8080"
+    volumes:
+      - type: volume
+        source: web_data
+        target: /Database
     environment:
       - DEBUG=1
   
